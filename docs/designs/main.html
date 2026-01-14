@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palette - Faithful Design</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@400;700&display=swap');
+
+        :root {
+            --bg-color: #F7F5EF; /* Warmer, creamy beige */
+            --card-bg: #FCFBF8; /* Off-white for cards */
+            --text-primary: #3E362E; /* Dark warm brown */
+            --text-secondary: #70665C; /* Medium warm brown */
+            --accent-gold: #A6926D; /* Muted antique gold */
+            --accent-dark: #857252;
+            --border-color: #E6E2D6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .brand {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            border-bottom: 1px solid rgba(62, 54, 46, 0.08);
+            background-color: var(--bg-color);
+        }
+
+        .brand {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: color 0.2s;
+        }
+        
+        nav a:hover {
+            color: var(--accent-gold);
+        }
+
+        .menu-icon {
+            font-size: 1.5rem;
+            margin-left: 1rem;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 520px;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end; /* Search bar at bottom like image */
+            justify-content: center;
+            padding-bottom: 4rem;
+            background-color: #ddd; 
+        }
+
+        /* Simulated Hero Image */
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+            filter: brightness(0.95) sepia(0.15) contrast(0.9); /* Warm filter */
+        }
+
+        .search-container {
+            position: relative;
+            z-index: 10;
+            background: rgba(252, 251, 248, 0.85); /* Warm translucent background */
+            backdrop-filter: blur(8px);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            gap: 0.8rem;
+            box-shadow: 0 8px 32px rgba(62, 54, 46, 0.1);
+            align-items: center;
+            flex-wrap: wrap;
+            max-width: 800px;
+            width: 90%;
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+
+        .search-input-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 200px;
+        }
+        
+        .search-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 0.2rem;
+            margin-left: 0.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .search-input, .search-select {
+            padding: 0.8rem 1rem;
+            border: 1px solid #D6D0C2;
+            background: #fff;
+            border-radius: 6px;
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            color: var(--text-primary);
+            width: 100%;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus, .search-select:focus {
+            border-color: var(--accent-gold);
+        }
+
+        .search-btn {
+            padding: 0.8rem 2rem;
+            background-color: var(--accent-gold);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Lato', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 1rem;
+            transition: background 0.2s;
+            margin-top: 1.2rem; /* Align with inputs */
+            height: 46px; /* Match input height roughly */
+        }
+
+        .search-btn:hover {
+            background-color: var(--accent-dark);
+        }
+
+        /* Content Section */
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-header {
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            font-weight: 400;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Grid */
+        .artwork-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(62, 54, 46, 0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(62, 54, 46, 0.03);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(62, 54, 46, 0.08);
+        }
+
+        .card-image-wrapper {
+            position: relative;
+            height: 240px;
+            background-color: #E6E2D6;
+            overflow: hidden;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .card:hover .card-image {
+            transform: scale(1.05);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-primary);
+            padding: 6px 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 4px;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .score-pill {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--accent-gold);
+            color: white;
+            padding: 6px 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border-radius: 50px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .card-body {
+            padding: 1.8rem;
+            text-align: left;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .card-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .btn-details {
+            display: block;
+            width: 100%;
+            padding: 0.9rem;
+            background-color: var(--card-bg);
+            color: var(--accent-gold);
+            text-align: center;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            border: 1px solid var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-details:hover {
+            background-color: var(--accent-gold);
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand">Palette</div>
+        <nav>
+            <ul>
+                <li><a href="#">Fine Art <span>&#709;</span></a></li>
+                <li><a href="#">Design <span>&#709;</span></a></li>
+                <li><a href="#">Oriental Painting <span>&#709;</span></a></li>
+                <li class="menu-icon">&#9776;</li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <div class="hero-bg"></div>
+        <div class="search-container">
+            <div class="search-input-group">
+                <label class="search-label">What are you looking for?</label>
+                <input type="text" class="search-input" placeholder="Keyword, Mentor, or Subject...">
+            </div>
+            
+            <div class="search-input-group" style="flex: 0.6;">
+                <label class="search-label">Category</label>
+                <select class="search-select">
+                    <option>All Majors</option>
+                    <option>Fine Art</option>
+                    <option>Design</option>
+                    <option>Oriental Painting</option>
+                    <option>Sculpture</option>
+                </select>
+            </div>
+
+            <button class="search-btn">Search</button>
+        </div>
+    </div>
+
+    <main class="content">
+        <div class="section-header">
+            <h2>Curated Masterpieces</h2>
+            <p class="section-subtitle">Explore high-quality feedback and portfolios from top mentors and students.</p>
+        </div>
+
+        <div class="artwork-grid">
+            <!-- Card 1 -->
+            <article class="card">
+                <div class="card-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Charcoal Portrait" class="card-image">
+                    <div class="card-badge">Student: Sofia L.</div>
+                    <div class="score-pill">9.5</div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Charcoal Study No. 5</h3>
+                    <p class="card-desc">A detailed study of facial structure using compressed charcoal. Focus on chiaroscuro.</p>
+                    <a href="#" class="btn-details">View Critique</a>
+                </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="card">
+                <div class="card-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1579783902614-a3fb39279ccf?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Digital Illustration" class="card-image">
+                    <div class="card-badge">Student: Marcus T.</div>
+                    <div class="score-pill">9.2</div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Digital Metropolis</h3>
+                    <p class="card-desc">Concept art for an urban environment using atmospheric perspective and sharp lighting.</p>
+                    <a href="#" class="btn-details">View Critique</a>
+                </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="card">
+                <div class="card-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1515405295579-ba7b45403062?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Watercolor Landscape" class="card-image">
+                    <div class="card-badge">Student: Chen W.</div>
+                    <div class="score-pill">9.8</div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Morning Serenity</h3>
+                    <p class="card-desc">Wet-on-wet watercolor technique capturing the mist over a quiet lake.</p>
+                    <a href="#" class="btn-details">View Critique</a>
+                </div>
+            </article>
+             <!-- Card 4 -->
+             <article class="card">
+                <div class="card-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Oil Painting" class="card-image">
+                    <div class="card-badge">Student: Emma R.</div>
+                    <div class="score-pill">9.0</div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Still Life in Oil</h3>
+                    <p class="card-desc">Classic composition focusing on the texture of fruits and metallic reflections.</p>
+                    <a href="#" class="btn-details">View Critique</a>
+                </div>
+            </article>
+        </div>
+    </main>
+</body>
+</html>
