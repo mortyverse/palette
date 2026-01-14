@@ -44,7 +44,7 @@ export function SignupForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       {error && (
-        <div className="p-3 text-sm text-red-600 bg-red-50 rounded">
+        <div className="p-4 text-sm text-[var(--danger)] bg-[var(--danger)]/10 rounded-md border border-[var(--danger)]/20">
           {error}
         </div>
       )}
@@ -67,21 +67,21 @@ export function SignupForm() {
         disabled={isLoading}
       />
 
-      <div className="space-y-1">
-        <label className="block text-sm font-medium text-gray-700">
-          역할
+      <div className="space-y-2">
+        <label className="block font-bold text-[var(--palette-text)]">
+          Role
         </label>
         <select
           {...registerField('role')}
-          className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-3 border border-[var(--palette-border)] rounded-md bg-white text-[var(--palette-text)] focus:outline-none focus:border-[var(--palette-gold)] transition-colors"
           disabled={isLoading}
         >
-          <option value="">역할을 선택해주세요</option>
-          <option value="student">학생</option>
-          <option value="mentor">멘토</option>
+          <option value="">Select your role</option>
+          <option value="student">Student</option>
+          <option value="mentor">Mentor</option>
         </select>
         {errors.role && (
-          <p className="text-sm text-red-600">{errors.role.message}</p>
+          <p className="text-sm text-[var(--danger)]">{errors.role.message}</p>
         )}
       </div>
 

@@ -20,68 +20,69 @@ export function GNB() {
 
   if (!hydrated) {
     return (
-      <nav className="border-b bg-white">
-        <div className="container mx-auto px-4 py-4">
-          <div className="text-gray-400">로딩 중...</div>
-        </div>
-      </nav>
+      <header className="flex justify-between items-center px-12 py-6 border-b border-[var(--palette-text)]/[0.08] bg-[var(--palette-bg)]">
+        <div className="text-[var(--palette-muted)]">Loading...</div>
+      </header>
     )
   }
 
   const navItems = getNavItemsForRole(user?.role || null)
 
   return (
-    <nav className="border-b bg-white">
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          {/* Logo / Brand */}
-          <Link href="/" className="text-xl font-bold text-gray-900">
-            Palette
-          </Link>
+    <header className="flex justify-between items-center px-12 py-6 border-b border-[var(--palette-text)]/[0.08] bg-[var(--palette-bg)]">
+      {/* Logo / Brand */}
+      <Link
+        href="/"
+        className="font-[var(--font-playfair)] text-2xl font-semibold tracking-tight text-[var(--palette-text)]"
+        style={{ fontFamily: 'var(--font-playfair), Playfair Display, serif' }}
+      >
+        Palette
+      </Link>
 
-          {/* Navigation Items */}
-          <div className="flex items-center gap-6">
-            {navItems.map(item => (
+      {/* Navigation Items */}
+      <nav>
+        <ul className="flex items-center gap-8">
+          {navItems.map(item => (
+            <li key={item.href}>
               <Link
-                key={item.href}
                 href={item.href}
-                className="text-gray-700 hover:text-blue-600 transition-colors"
+                className="text-[var(--palette-text)] font-medium text-[0.95rem] transition-colors hover:text-[var(--palette-gold)]"
               >
                 {item.label}
               </Link>
-            ))}
-          </div>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
-          {/* Auth Section */}
-          <div>
-            {isAuthenticated && user ? (
-              <div className="flex items-center gap-4">
-                <span className="text-sm text-gray-600">{user.email}</span>
-                <Button
-                  onClick={handleLogout}
-                  variant="secondary"
-                  className="text-sm"
-                >
-                  로그아웃
-                </Button>
-              </div>
-            ) : (
-              <div className="flex gap-2">
-                <Link href="/login">
-                  <Button variant="primary" className="text-sm">
-                    로그인
-                  </Button>
-                </Link>
-                <Link href="/signup">
-                  <Button variant="secondary" className="text-sm">
-                    회원가입
-                  </Button>
-                </Link>
-              </div>
-            )}
+      {/* Auth Section */}
+      <div>
+        {isAuthenticated && user ? (
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-[var(--palette-muted)]">{user.email}</span>
+            <Button
+              onClick={handleLogout}
+              variant="secondary"
+              className="text-xs py-2 px-4"
+            >
+              Logout
+            </Button>
           </div>
-        </div>
+        ) : (
+          <div className="flex gap-3">
+            <Link href="/login">
+              <Button variant="primary" className="text-xs py-2 px-4">
+                Login
+              </Button>
+            </Link>
+            <Link href="/signup">
+              <Button variant="secondary" className="text-xs py-2 px-4">
+                Sign Up
+              </Button>
+            </Link>
+          </div>
+        )}
       </div>
-    </nav>
+    </header>
   )
 }

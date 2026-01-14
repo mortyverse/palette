@@ -41,13 +41,13 @@ function LoginFormInner() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       {returnUrl && (
-        <div className="p-3 text-sm text-blue-600 bg-blue-50 rounded">
-          상세 내용을 보려면 로그인이 필요합니다
+        <div className="p-4 text-sm text-[var(--palette-gold-dark)] bg-[var(--palette-gold)]/10 rounded-md border border-[var(--palette-gold)]/20">
+          Please sign in to view details
         </div>
       )}
 
       {error && (
-        <div className="p-3 text-sm text-red-600 bg-red-50 rounded">
+        <div className="p-4 text-sm text-[var(--danger)] bg-[var(--danger)]/10 rounded-md border border-[var(--danger)]/20">
           {error}
         </div>
       )}

@@ -12,13 +12,13 @@ export const FormField = React.forwardRef<HTMLInputElement, FormFieldProps>(
     const inputId = id || label.toLowerCase().replace(/\s+/g, '-')
 
     return (
-      <div className="space-y-1">
-        <label htmlFor={inputId} className="block text-sm font-medium text-gray-700">
+      <div className="space-y-2">
+        <label htmlFor={inputId} className="block font-bold text-[var(--palette-text)]">
           {label}
         </label>
         <Input ref={ref} id={inputId} error={error} {...props} />
         {error && (
-          <p className="text-sm text-red-600">{error}</p>
+          <p className="text-sm text-[var(--danger)]">{error}</p>
         )}
       </div>
     )

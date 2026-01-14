@@ -1,21 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Playfair_Display, Lato } from "next/font/google";
 import "./globals.css";
 import { GNB } from "@/components/layout/GNB";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
   subsets: ["latin"],
+  weight: ["400", "600"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const lato = Lato({
+  variable: "--font-lato",
   subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Palette - 디자인 학습 플랫폼",
-  description: "학생과 멘토를 연결하는 디자인 학습 플랫폼",
+  title: "Palette - Art & Design Learning Platform",
+  description: "Connect with mentors and grow your design skills",
 };
 
 export default function RootLayout({
@@ -26,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${playfair.variable} ${lato.variable} antialiased`}
       >
         <GNB />
         {children}
