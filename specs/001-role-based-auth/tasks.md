@@ -17,13 +17,13 @@
 
 **Purpose**: Project initialization and dependency installation
 
-- [ ] T001 Install project dependencies: zustand, bcryptjs, react-hook-form, zod, @hookform/resolvers
-- [ ] T002 Install dev dependencies: @types/bcryptjs
-- [ ] T003 [P] Create directory structure: src/components/{auth,layout,ui}
-- [ ] T004 [P] Create directory structure: src/lib/{auth,validation}
-- [ ] T005 [P] Create directory structure: src/store, src/types, src/hooks
-- [ ] T006 [P] Create directory structure: app/(auth)/{login,signup}
-- [ ] T007 [P] Create directory structure: app/gallery/[id]
+- [X] T001 Install project dependencies: zustand, bcryptjs, react-hook-form, zod, @hookform/resolvers
+- [X] T002 Install dev dependencies: @types/bcryptjs
+- [X] T003 [P] Create directory structure: src/components/{auth,layout,ui}
+- [X] T004 [P] Create directory structure: src/lib/{auth,validation}
+- [X] T005 [P] Create directory structure: src/store, src/types, src/hooks
+- [X] T006 [P] Create directory structure: app/(auth)/{login,signup}
+- [X] T007 [P] Create directory structure: app/gallery/[id]
 
 ---
 
@@ -33,15 +33,15 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T008 [P] Define core types in src/types/auth.ts (User, UserProfile, UserRole, LoginCredentials, RegisterData, AuthResponse, AuthError)
-- [ ] T009 [P] Create Zod validation schemas in src/lib/validation/auth-schemas.ts (loginSchema, signupSchema)
-- [ ] T010 [P] Implement password utilities in src/lib/auth/password.ts (hashPassword, verifyPassword using bcryptjs)
-- [ ] T011 Implement MockAuthService in src/lib/auth/mock-auth.service.ts (login, register, logout, getCurrentUser, checkEmailAvailability)
-- [ ] T012 Create Zustand auth store in src/store/auth-store.ts with persist middleware (skipHydration: true)
-- [ ] T013 Create useHydration hook in src/hooks/use-hydration.ts for SSR hydration guard
-- [ ] T014 [P] Create base UI components in src/components/ui/Button.tsx
-- [ ] T015 [P] Create base UI components in src/components/ui/Input.tsx
-- [ ] T016 [P] Create base UI components in src/components/ui/FormField.tsx
+- [X] T008 [P] Define core types in src/types/auth.ts (User, UserProfile, UserRole, LoginCredentials, RegisterData, AuthResponse, AuthError)
+- [X] T009 [P] Create Zod validation schemas in src/lib/validation/auth-schemas.ts (loginSchema, signupSchema)
+- [X] T010 [P] Implement password utilities in src/lib/auth/password.ts (hashPassword, verifyPassword using bcryptjs)
+- [X] T011 Implement MockAuthService in src/lib/auth/mock-auth.service.ts (login, register, logout, getCurrentUser, checkEmailAvailability)
+- [X] T012 Create Zustand auth store in src/store/auth-store.ts with persist middleware (skipHydration: true)
+- [X] T013 Create useHydration hook in src/hooks/use-hydration.ts for SSR hydration guard
+- [X] T014 [P] Create base UI components in src/components/ui/Button.tsx
+- [X] T015 [P] Create base UI components in src/components/ui/Input.tsx
+- [X] T016 [P] Create base UI components in src/components/ui/FormField.tsx
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -55,13 +55,13 @@
 
 ### Implementation for User Story 1
 
-- [ ] T017 [P] [US1] Create SignupForm component in src/components/auth/SignupForm.tsx (use React Hook Form + Zod resolver, onBlur validation mode)
-- [ ] T018 [P] [US1] Create signup page in app/(auth)/signup/page.tsx (render SignupForm with proper layout)
-- [ ] T019 [US1] Integrate SignupForm with Zustand auth store register action (handle success/error states, loading indicators)
-- [ ] T020 [US1] Add form validation error display in SignupForm (email format, password complexity, role selection)
-- [ ] T021 [US1] Implement auto-login after successful registration (redirect to home page with role-based GNB)
-- [ ] T022 [US1] Handle duplicate email error in SignupForm ("이미 사용 중인 이메일입니다")
-- [ ] T023 [US1] Add loading state during bcrypt password hashing (display "처리 중..." message)
+- [X] T017 [P] [US1] Create SignupForm component in src/components/auth/SignupForm.tsx (use React Hook Form + Zod resolver, onBlur validation mode)
+- [X] T018 [P] [US1] Create signup page in app/(auth)/signup/page.tsx (render SignupForm with proper layout)
+- [X] T019 [US1] Integrate SignupForm with Zustand auth store register action (handle success/error states, loading indicators)
+- [X] T020 [US1] Add form validation error display in SignupForm (email format, password complexity, role selection)
+- [X] T021 [US1] Implement auto-login after successful registration (redirect to home page with role-based GNB)
+- [X] T022 [US1] Handle duplicate email error in SignupForm ("이미 사용 중인 이메일입니다")
+- [X] T023 [US1] Add loading state during bcrypt password hashing (display "처리 중..." message)
 
 **Checkpoint**: At this point, User Story 1 should be fully functional - users can register with student/mentor role and see appropriate GNB
 
@@ -75,13 +75,13 @@
 
 ### Implementation for User Story 2
 
-- [ ] T024 [P] [US2] Create LoginForm component in src/components/auth/LoginForm.tsx (use React Hook Form + Zod resolver, onBlur validation mode)
-- [ ] T025 [P] [US2] Create login page in app/(auth)/login/page.tsx (render LoginForm with proper layout)
-- [ ] T026 [US2] Integrate LoginForm with Zustand auth store login action (handle success/error states, loading indicators)
-- [ ] T027 [US2] Add form validation error display in LoginForm (email format, password required)
-- [ ] T028 [US2] Implement generic error message for login failures ("이메일 또는 비밀번호가 올바르지 않습니다" for security)
-- [ ] T029 [US2] Handle returnUrl query parameter in login page (redirect to original destination after login)
-- [ ] T030 [US2] Add loading state during login authentication process
+- [X] T024 [P] [US2] Create LoginForm component in src/components/auth/LoginForm.tsx (use React Hook Form + Zod resolver, onBlur validation mode)
+- [X] T025 [P] [US2] Create login page in app/(auth)/login/page.tsx (render LoginForm with proper layout)
+- [X] T026 [US2] Integrate LoginForm with Zustand auth store login action (handle success/error states, loading indicators)
+- [X] T027 [US2] Add form validation error display in LoginForm (email format, password required)
+- [X] T028 [US2] Implement generic error message for login failures ("이메일 또는 비밀번호가 올바르지 않습니다" for security)
+- [X] T029 [US2] Handle returnUrl query parameter in login page (redirect to original destination after login)
+- [X] T030 [US2] Add loading state during login authentication process
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work - users can register, login, and see role-based navigation
 
@@ -95,13 +95,13 @@
 
 ### Implementation for User Story 3
 
-- [ ] T031 [P] [US3] Define navigation items constants in src/lib/constants/nav-items.ts (GUEST_NAV_ITEMS, STUDENT_NAV_ITEMS, MENTOR_NAV_ITEMS)
-- [ ] T032 [P] [US3] Create helper function getNavItemsForRole in src/lib/constants/nav-items.ts
-- [ ] T033 [US3] Create GNB component in src/components/layout/GNB.tsx (display nav items based on user role, show login/signup for guests)
-- [ ] T034 [US3] Integrate GNB with useHydration hook (prevent hydration mismatch, show loading state)
-- [ ] T035 [US3] Add user email display and logout button in GNB for authenticated users
-- [ ] T036 [US3] Update root layout in app/layout.tsx to include GNB component
-- [ ] T037 [US3] Implement logout functionality in GNB (call auth store logout, clear session state)
+- [X] T031 [P] [US3] Define navigation items constants in src/lib/constants/nav-items.ts (GUEST_NAV_ITEMS, STUDENT_NAV_ITEMS, MENTOR_NAV_ITEMS)
+- [X] T032 [P] [US3] Create helper function getNavItemsForRole in src/lib/constants/nav-items.ts
+- [X] T033 [US3] Create GNB component in src/components/layout/GNB.tsx (display nav items based on user role, show login/signup for guests)
+- [X] T034 [US3] Integrate GNB with useHydration hook (prevent hydration mismatch, show loading state)
+- [X] T035 [US3] Add user email display and logout button in GNB for authenticated users
+- [X] T036 [US3] Update root layout in app/layout.tsx to include GNB component
+- [X] T037 [US3] Implement logout functionality in GNB (call auth store logout, clear session state)
 
 **Checkpoint**: At this point, GNB correctly displays different menu items based on user role (student/mentor/guest)
 
@@ -115,12 +115,12 @@
 
 ### Implementation for User Story 4
 
-- [ ] T038 [P] [US4] Create ProtectedRoute component in src/components/auth/ProtectedRoute.tsx (check authentication, redirect to login with returnUrl)
-- [ ] T039 [P] [US4] Create gallery list page in app/gallery/page.tsx (public access, display thumbnails for all users)
-- [ ] T040 [US4] Create gallery detail page in app/gallery/[id]/page.tsx (wrap with ProtectedRoute, show content only to authenticated users)
-- [ ] T041 [US4] Implement returnUrl save and restore in ProtectedRoute (save original destination, redirect after login)
-- [ ] T042 [US4] Add loading state in ProtectedRoute while checking authentication (prevent content flash)
-- [ ] T043 [US4] Display informative message in login page when redirected ("상세 내용을 보려면 로그인이 필요합니다")
+- [X] T038 [P] [US4] Create ProtectedRoute component in src/components/auth/ProtectedRoute.tsx (check authentication, redirect to login with returnUrl)
+- [X] T039 [P] [US4] Create gallery list page in app/gallery/page.tsx (public access, display thumbnails for all users)
+- [X] T040 [US4] Create gallery detail page in app/gallery/[id]/page.tsx (wrap with ProtectedRoute, show content only to authenticated users)
+- [X] T041 [US4] Implement returnUrl save and restore in ProtectedRoute (save original destination, redirect after login)
+- [X] T042 [US4] Add loading state in ProtectedRoute while checking authentication (prevent content flash)
+- [X] T043 [US4] Display informative message in login page when redirected ("상세 내용을 보려면 로그인이 필요합니다")
 
 **Checkpoint**: Gallery list is public, gallery detail pages are protected and redirect unauthenticated users to login
 
@@ -134,11 +134,11 @@
 
 ### Implementation for User Story 5
 
-- [ ] T044 [US5] Implement logout action in Zustand auth store (clear user state, reset isAuthenticated flag)
-- [ ] T045 [US5] Connect logout button in GNB to logout action (show confirmation if needed)
-- [ ] T046 [US5] Redirect to home page after logout (clear any protected route state)
-- [ ] T047 [US5] Implement browser back button protection (redirect to login if accessing protected pages after logout)
-- [ ] T048 [US5] Clear any returnUrl state on logout (prevent unwanted redirects)
+- [X] T044 [US5] Implement logout action in Zustand auth store (clear user state, reset isAuthenticated flag)
+- [X] T045 [US5] Connect logout button in GNB to logout action (show confirmation if needed)
+- [X] T046 [US5] Redirect to home page after logout (clear any protected route state)
+- [X] T047 [US5] Implement browser back button protection (redirect to login if accessing protected pages after logout)
+- [X] T048 [US5] Clear any returnUrl state on logout (prevent unwanted redirects)
 
 **Checkpoint**: All 5 user stories are now complete - full authentication flow works end-to-end
 
@@ -148,19 +148,19 @@
 
 **Purpose**: Improvements that affect multiple user stories, validation, and documentation
 
-- [ ] T049 [P] Add mobile-first responsive styling to all forms and GNB (minimum touch target 44x44px, test at 375px viewport)
-- [ ] T050 [P] Implement consistent error message styling across all forms
-- [ ] T051 [P] Add loading spinners for async operations (login, register, password hashing)
-- [ ] T052 [P] Ensure all forms have proper accessibility (ARIA labels, keyboard navigation, focus management)
-- [ ] T053 [P] Add form submission prevention during loading states (disable buttons)
-- [ ] T054 Validate all validation error messages match spec requirements (Korean messages, security-conscious)
-- [ ] T055 Test complete authentication flow following quickstart.md validation steps
-- [ ] T056 Verify localStorage persistence works across page refresh and browser restart
-- [ ] T057 Test edge cases: duplicate email, wrong password, invalid formats, network errors
-- [ ] T058 Verify hydration handling works correctly (no SSR/client mismatch warnings)
-- [ ] T059 Ensure bcrypt hashing is non-blocking (UI remains responsive during password processing)
-- [ ] T060 Create seed data for development (2-3 mock users with student and mentor roles)
-- [ ] T061 Document Phase 2 migration path in CLAUDE.md (API integration, httpOnly cookies transition)
+- [X] T049 [P] Add mobile-first responsive styling to all forms and GNB (minimum touch target 44x44px, test at 375px viewport)
+- [X] T050 [P] Implement consistent error message styling across all forms
+- [X] T051 [P] Add loading spinners for async operations (login, register, password hashing)
+- [X] T052 [P] Ensure all forms have proper accessibility (ARIA labels, keyboard navigation, focus management)
+- [X] T053 [P] Add form submission prevention during loading states (disable buttons)
+- [X] T054 Validate all validation error messages match spec requirements (Korean messages, security-conscious)
+- [X] T055 Test complete authentication flow following quickstart.md validation steps
+- [X] T056 Verify localStorage persistence works across page refresh and browser restart
+- [X] T057 Test edge cases: duplicate email, wrong password, invalid formats, network errors
+- [X] T058 Verify hydration handling works correctly (no SSR/client mismatch warnings)
+- [X] T059 Ensure bcrypt hashing is non-blocking (UI remains responsive during password processing)
+- [X] T060 Create seed data for development (2-3 mock users with student and mentor roles)
+- [X] T061 Document Phase 2 migration path in CLAUDE.md (API integration, httpOnly cookies transition)
 
 ---
 
