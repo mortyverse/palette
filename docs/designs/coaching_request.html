@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palette - Request Coaching</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@400;700&display=swap');
+
+        :root {
+            --bg-color: #F7F5EF;
+            --card-bg: #FCFBF8;
+            --text-primary: #3E362E;
+            --text-secondary: #70665C;
+            --accent-gold: #A6926D;
+            --accent-dark: #857252;
+            --border-color: #E6E2D6;
+            --danger: #D9534F;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .brand { font-family: 'Playfair Display', serif; }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            border-bottom: 1px solid rgba(62, 54, 46, 0.08);
+            background-color: var(--bg-color);
+        }
+
+        .brand { font-size: 2rem; font-weight: 600; letter-spacing: -0.5px; color: var(--text-primary); }
+        
+        nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; }
+        nav a { text-decoration: none; color: var(--text-primary); font-weight: 500; }
+        nav a:hover { color: var(--accent-gold); }
+
+        .container {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .page-header p { color: var(--text-secondary); }
+
+        .form-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 20px rgba(62, 54, 46, 0.04);
+            border: 1px solid rgba(62, 54, 46, 0.03);
+        }
+
+        .form-group { margin-bottom: 1.5rem; }
+
+        .label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .input-text, .textarea, .select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            background: #fff;
+        }
+        
+        .textarea { min-height: 150px; resize: vertical; }
+
+        .upload-area {
+            border: 2px dashed var(--accent-gold);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            background: rgba(166, 146, 109, 0.05);
+            transition: background 0.2s;
+        }
+
+        .upload-area:hover { background: rgba(166, 146, 109, 0.1); }
+        .upload-icon { font-size: 2rem; color: var(--accent-gold); margin-bottom: 0.5rem; }
+
+        .credit-info {
+            background: #F0EBE0;
+            padding: 1rem;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .credit-balance { font-weight: 700; color: var(--accent-dark); }
+        .credit-cost { color: var(--danger); font-weight: 700; }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--accent-gold);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Lato', sans-serif;
+            transition: background 0.2s;
+        }
+
+        .btn-submit:hover { background-color: var(--accent-dark); }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand">Palette</div>
+        <nav>
+            <ul>
+                <li><a href="#">Gallery</a></li>
+                <li><a href="#">Coaching</a></li>
+                <li><a href="#">My Page</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Request 1:1 Coaching</h1>
+            <p>Get detailed feedback from top mentors within 24 hours.</p>
+        </div>
+
+        <div class="form-card">
+            <!-- Credit Status -->
+            <div class="credit-info">
+                <span>Current Balance: <span class="credit-balance">1,200 P</span></span>
+                <span>Cost: <span class="credit-cost">- 500 P</span></span>
+            </div>
+
+            <form>
+                <!-- Mentor Selection -->
+                <div class="form-group">
+                    <label class="label">Select Mentor (Optional)</label>
+                    <select class="select">
+                        <option>Any Available Mentor (Fastest)</option>
+                        <option>Sarah Kim (Fine Art)</option>
+                        <option>David Park (Design)</option>
+                    </select>
+                </div>
+
+                <!-- Image Upload -->
+                <div class="form-group">
+                    <label class="label">Upload Artwork</label>
+                    <div class="upload-area">
+                        <div class="upload-icon">📷</div>
+                        <p>Click to upload or drag & drop</p>
+                        <span style="font-size: 0.8rem; color: var(--text-secondary);">JPG, PNG up to 10MB</span>
+                    </div>
+                </div>
+
+                <!-- Title -->
+                <div class="form-group">
+                    <label class="label">Title</label>
+                    <input type="text" class="input-text" placeholder="e.g. Hand drawing study">
+                </div>
+
+                <!-- Question -->
+                <div class="form-group">
+                    <label class="label">Your Question</label>
+                    <textarea class="textarea" placeholder="Describe your artwork and what specific feedback you are looking for (e.g., coloring, perspective, composition)..."></textarea>
+                </div>
+
+                <button type="button" class="btn-submit">Submit Request</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

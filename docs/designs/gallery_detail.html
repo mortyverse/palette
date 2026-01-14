@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palette - Artwork Detail</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@400;700&display=swap');
+
+        :root {
+            --bg-color: #F7F5EF;
+            --card-bg: #FCFBF8;
+            --text-primary: #3E362E;
+            --text-secondary: #70665C;
+            --accent-gold: #A6926D;
+            --accent-dark: #857252;
+            --border-color: #E6E2D6;
+            --mentor-badge-bg: #3E362E;
+            --mentor-badge-text: #F7F5EF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .brand { font-family: 'Playfair Display', serif; }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            border-bottom: 1px solid rgba(62, 54, 46, 0.08);
+            background-color: var(--bg-color);
+        }
+
+        .brand { font-size: 2rem; font-weight: 600; letter-spacing: -0.5px; color: var(--text-primary); }
+        
+        nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; }
+        nav a { text-decoration: none; color: var(--text-primary); font-weight: 500; }
+        nav a:hover { color: var(--accent-gold); }
+
+        .container {
+            max-width: 1100px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 3rem;
+        }
+
+        /* Left Column: Artwork */
+        .artwork-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .artwork-display {
+            width: 100%;
+            background: #E0E0E0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .artwork-img {
+            width: 100%;
+            display: block;
+            height: auto;
+        }
+
+        .artwork-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .action-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-family: 'Lato', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+
+        /* Right Column: Info & Comments */
+        .info-section {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .meta-header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .student-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .avatar { width: 32px; height: 32px; background: #ddd; border-radius: 50%; }
+
+        .artwork-title { font-size: 2rem; margin-bottom: 0.5rem; }
+        .artwork-desc { color: var(--text-secondary); font-size: 0.95rem; }
+
+        /* Comments Area */
+        .comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* Mentor Comment (Highlighted) */
+        .comment-card.mentor {
+            background: white;
+            border: 1px solid var(--accent-gold);
+            border-radius: 8px;
+            padding: 1.5rem;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(166, 146, 109, 0.1);
+        }
+
+        .mentor-badge {
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: var(--mentor-badge-bg);
+            color: var(--mentor-badge-text);
+            padding: 2px 10px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+        }
+        
+        .user-name { font-weight: bold; }
+        .comment-date { color: #999; font-size: 0.8rem; }
+        .comment-body { font-size: 0.95rem; line-height: 1.6; }
+
+        /* Standard Comment */
+        .comment-card {
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comment-card.mentor .comment-card { border: none; padding: 0; }
+
+        /* Input Area */
+        .comment-input-area {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .comment-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .btn-post {
+            background: var(--text-primary);
+            color: white;
+            border: none;
+            padding: 0 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand">Palette</div>
+        <nav>
+            <ul>
+                <li><a href="#">Gallery</a></li>
+                <li><a href="#">Coaching</a></li>
+                <li><a href="#">My Page</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Left: Artwork -->
+        <main class="artwork-section">
+            <div class="artwork-display">
+                <img src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Charcoal Study" class="artwork-img">
+            </div>
+            <div class="artwork-actions">
+                <button class="action-btn">❤️ Like (42)</button>
+                <button class="action-btn">🔖 Scrap</button>
+                <button class="action-btn">🔗 Share</button>
+            </div>
+        </main>
+
+        <!-- Right: Info -->
+        <aside class="info-section">
+            <div class="meta-header">
+                <div class="student-badge">
+                    <div class="avatar"></div>
+                    <span>Sofia L.</span>
+                </div>
+                <h1 class="artwork-title">Charcoal Study No. 5</h1>
+                <p class="artwork-desc">
+                    A detailed study of facial structure using compressed charcoal on textured paper. 
+                    I focused heavily on the chiaroscuro technique to bring out the depth.
+                    Looking for feedback on the proportions of the nose and mouth.
+                </p>
+            </div>
+
+            <h3 style="font-size: 1.2rem;">Critiques & Comments</h3>
+            
+            <div class="comments-list">
+                
+                <!-- Mentor Feedback -->
+                <article class="comment-card mentor">
+                    <div class="mentor-badge">Best Critique</div>
+                    <div class="comment-header">
+                        <span class="user-name">Mentor Sarah Kim</span>
+                        <span class="comment-date">2 hours ago</span>
+                    </div>
+                    <div class="comment-body">
+                        <p>Excellent work on the shading, Sofia! The contrast is very striking.</p>
+                        <p style="margin-top:0.5rem;">Regarding your question: The nose bridge seems slightly too wide for the angle. I've attached a redline correction in the detailed feedback view. Also, try to soften the edge of the jawline just a bit to make it turn in space better.</p>
+                    </div>
+                </article>
+
+                <!-- Regular Comments -->
+                <article class="comment-card">
+                    <div class="comment-header">
+                        <span class="user-name">ArtStudent99</span>
+                        <span class="comment-date">5 hours ago</span>
+                    </div>
+                    <div class="comment-body">
+                        The texture of the paper really adds to this! Love it.
+                    </div>
+                </article>
+
+            </div>
+
+            <div class="comment-input-area">
+                <input type="text" class="comment-input" placeholder="Leave a comment...">
+                <button class="btn-post">Post</button>
+            </div>
+        </aside>
+    </div>
+
+</body>
+</html>
