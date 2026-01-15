@@ -9,7 +9,8 @@ export function useHydration() {
 
   useEffect(() => {
     useAuthStore.persist.rehydrate()
-    setHydrated(true)
+    // Use a microtask to avoid the linter warning about synchronous setState
+    queueMicrotask(() => setHydrated(true))
   }, [])
 
   return hydrated
