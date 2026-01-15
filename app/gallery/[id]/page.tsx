@@ -1,137 +1,268 @@
-// app/gallery/[id]/page.tsx
-import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
-import Image from 'next/image'
+'use client';
+
+import { useState, useEffect, use } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { ArrowLeft, Heart, Bookmark, Share2, Trash2, Loader2 } from 'lucide-react';
+import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
+import { CommentList } from '@/components/gallery/CommentList';
+import { CommentInput } from '@/components/gallery/CommentInput';
+import { Button } from '@/components/ui/Button';
+import { galleryService } from '@/lib/gallery';
+import { useAuthStore } from '@/store/auth-store';
+import { useHydration } from '@/hooks/use-hydration';
+import { Artwork, Comment } from '@/types/gallery';
 
 interface GalleryDetailPageProps {
-  params: Promise<{ id: string }>
+  params: Promise<{ id: string }>;
 }
 
-// Mock data for artwork details
-const artworkData: Record<string, {
-  title: string
-  student: string
-  description: string
-  image: string
-  mentorComment: {
-    name: string
-    text: string
-    date: string
+export default function GalleryDetailPage({ params }: GalleryDetailPageProps) {
+  const { id } = use(params);
+  const router = useRouter();
+  const hydrated = useHydration();
+  const { user, isAuthenticated } = useAuthStore();
+
+  const [artwork, setArtwork] = useState<Artwork | null>(null);
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
+  const [isScrapped, setIsScrapped] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const canDelete = artwork && user?.id === artwork.authorId;
+
+  useEffect(() => {
+    if (!hydrated) return;
+
+    async function fetchData() {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const [artworkData, commentsData] = await Promise.all([
+          galleryService.getArtwork(id),
+          galleryService.getComments(id),
+        ]);
+
+        if (!artworkData) {
+          setError('Artwork not found');
+          return;
+        }
+
+        setArtwork(artworkData);
+        setComments(commentsData);
+        setIsLiked(artworkData.isLiked || false);
+        setLikeCount(artworkData.likeCount);
+        setIsScrapped(artworkData.isScrapped || false);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load artwork');
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchData();
+  }, [id, hydrated]);
+
+  const handleLike = async () => {
+    if (!isAuthenticated) return;
+    try {
+      const result = await galleryService.toggleLike(id);
+      setIsLiked(result.isLiked);
+      setLikeCount(result.likeCount);
+    } catch (error) {
+      console.error('Failed to toggle like:', error);
+    }
+  };
+
+  const handleScrap = async () => {
+    if (!isAuthenticated) return;
+    try {
+      const result = await galleryService.toggleScrap(id);
+      setIsScrapped(result.isScrapped);
+    } catch (error) {
+      console.error('Failed to toggle scrap:', error);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!canDelete || isDeleting) return;
+    if (!confirm('Are you sure you want to delete this artwork?')) return;
+
+    setIsDeleting(true);
+    try {
+      await galleryService.deleteArtwork(id);
+      router.push('/gallery');
+    } catch (error) {
+      console.error('Failed to delete artwork:', error);
+      setIsDeleting(false);
+    }
+  };
+
+  const handlePostComment = async (content: string) => {
+    const newComment = await galleryService.postComment(id, content);
+    setComments((prev) => [newComment, ...prev]);
+    if (artwork) {
+      setArtwork({ ...artwork, commentCount: artwork.commentCount + 1 });
+    }
+  };
+
+  const handleShare = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      alert('Link copied to clipboard!');
+    } catch {
+      alert('Failed to copy link');
+    }
+  };
+
+  if (!hydrated || isLoading) {
+    return (
+      <ProtectedRoute>
+        <div className="max-w-[1100px] mx-auto my-12 px-6">
+          <div className="animate-pulse">
+            <div className="h-8 bg-gray-200 rounded w-24 mb-8" />
+            <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-12">
+              <div className="aspect-[4/3] bg-gray-200 rounded-lg" />
+              <div className="space-y-4">
+                <div className="h-6 bg-gray-200 rounded w-1/2" />
+                <div className="h-10 bg-gray-200 rounded w-3/4" />
+                <div className="h-24 bg-gray-200 rounded" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </ProtectedRoute>
+    );
   }
-  comments: Array<{ name: string; text: string; date: string }>
-}> = {
-  '1': {
-    title: 'Charcoal Study No. 5',
-    student: 'Sofia L.',
-    description: 'A detailed study of facial structure using compressed charcoal on textured paper. I focused heavily on the chiaroscuro technique to bring out the depth. Looking for feedback on the proportions of the nose and mouth.',
-    image: 'https://images.unsplash.com/photo-1544531586-fde5298cdd40?w=1000&q=80',
-    mentorComment: {
-      name: 'Mentor Sarah Kim',
-      text: 'Excellent work on the shading, Sofia! The contrast is very striking. Regarding your question: The nose bridge seems slightly too wide for the angle. Also, try to soften the edge of the jawline just a bit to make it turn in space better.',
-      date: '2 hours ago',
-    },
-    comments: [
-      { name: 'ArtStudent99', text: 'The texture of the paper really adds to this! Love it.', date: '5 hours ago' },
-    ],
-  },
-}
 
-export default async function GalleryDetailPage({ params }: GalleryDetailPageProps) {
-  const { id } = await params
-  const artwork = artworkData[id] || artworkData['1']
+  if (error || !artwork) {
+    return (
+      <ProtectedRoute>
+        <div className="max-w-[1100px] mx-auto my-12 px-6 text-center">
+          <p className="text-red-500 mb-4">{error || 'Artwork not found'}</p>
+          <Link href="/gallery">
+            <Button variant="secondary">Back to Gallery</Button>
+          </Link>
+        </div>
+      </ProtectedRoute>
+    );
+  }
 
   return (
     <ProtectedRoute>
-      <div className="max-w-[1100px] mx-auto my-12 px-6 grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-12">
-        {/* Left: Artwork */}
-        <main className="flex flex-col gap-6">
-          <div className="relative w-full bg-[var(--palette-border)] rounded-lg overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
-            <Image
-              src={artwork.image}
-              alt={artwork.title}
-              width={1000}
-              height={800}
-              className="w-full h-auto"
-            />
-          </div>
-          <div className="flex gap-4 justify-end">
-            <button className="flex items-center gap-2 px-4 py-2 border border-[var(--palette-border)] text-[var(--palette-muted)] rounded transition-all hover:border-[var(--palette-gold)] hover:text-[var(--palette-gold)]">
-              Like (42)
-            </button>
-            <button className="flex items-center gap-2 px-4 py-2 border border-[var(--palette-border)] text-[var(--palette-muted)] rounded transition-all hover:border-[var(--palette-gold)] hover:text-[var(--palette-gold)]">
-              Scrap
-            </button>
-            <button className="flex items-center gap-2 px-4 py-2 border border-[var(--palette-border)] text-[var(--palette-muted)] rounded transition-all hover:border-[var(--palette-gold)] hover:text-[var(--palette-gold)]">
-              Share
-            </button>
-          </div>
-        </main>
+      <div className="max-w-[1100px] mx-auto my-12 px-6">
+        <Link
+          href="/gallery"
+          className="inline-flex items-center gap-2 text-[var(--palette-muted)] hover:text-[var(--palette-text)] mb-8"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Gallery
+        </Link>
 
-        {/* Right: Info */}
-        <aside className="flex flex-col gap-8">
-          <div className="border-b border-[var(--palette-border)] pb-6">
-            <div className="flex items-center gap-2 font-bold mb-2">
-              <div className="w-8 h-8 bg-[var(--palette-border)] rounded-full" />
-              <span>{artwork.student}</span>
+        <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-12">
+          {/* Left: Artwork */}
+          <main className="flex flex-col gap-6">
+            <div className="relative w-full bg-[var(--palette-border)] rounded-lg overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+              <Image
+                src={artwork.imageUrl}
+                alt={artwork.title}
+                width={1000}
+                height={800}
+                className="w-full h-auto"
+              />
             </div>
-            <h1
-              className="text-[2rem] mb-2 text-[var(--palette-text)]"
+            <div className="flex gap-3 justify-end flex-wrap">
+              <Button
+                variant="action"
+                onClick={handleLike}
+                disabled={!isAuthenticated}
+                className={isLiked ? 'border-red-400 text-red-500' : ''}
+              >
+                <Heart className={`h-4 w-4 ${isLiked ? 'fill-red-500' : ''}`} />
+                Like ({likeCount})
+              </Button>
+              <Button
+                variant="action"
+                onClick={handleScrap}
+                disabled={!isAuthenticated}
+                className={isScrapped ? 'border-[var(--palette-gold)] text-[var(--palette-gold)]' : ''}
+              >
+                <Bookmark className={`h-4 w-4 ${isScrapped ? 'fill-[var(--palette-gold)]' : ''}`} />
+                Scrap
+              </Button>
+              <Button variant="action" onClick={handleShare}>
+                <Share2 className="h-4 w-4" />
+                Share
+              </Button>
+              {canDelete && (
+                <Button
+                  variant="action"
+                  onClick={handleDelete}
+                  disabled={isDeleting}
+                  className="hover:border-red-400 hover:text-red-500"
+                >
+                  {isDeleting ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <Trash2 className="h-4 w-4" />
+                  )}
+                  Delete
+                </Button>
+              )}
+            </div>
+          </main>
+
+          {/* Right: Info */}
+          <aside className="flex flex-col gap-8">
+            <div className="border-b border-[var(--palette-border)] pb-6">
+              <div className="flex items-center gap-2 font-bold mb-2">
+                <div className="w-8 h-8 bg-[var(--palette-border)] rounded-full flex items-center justify-center text-sm">
+                  {artwork.authorName.charAt(0)}
+                </div>
+                <span>{artwork.authorName}</span>
+                {artwork.authorRole === 'mentor' && (
+                  <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700">
+                    Mentor
+                  </span>
+                )}
+              </div>
+              <h1
+                className="text-[2rem] mb-2 text-[var(--palette-text)]"
+                style={{ fontFamily: 'var(--font-playfair), Playfair Display, serif' }}
+              >
+                {artwork.title}
+              </h1>
+              <p className="text-[var(--palette-muted)] text-[0.95rem]">
+                {artwork.description}
+              </p>
+            </div>
+
+            <h3
+              className="text-xl"
               style={{ fontFamily: 'var(--font-playfair), Playfair Display, serif' }}
             >
-              {artwork.title}
-            </h1>
-            <p className="text-[var(--palette-muted)] text-[0.95rem]">
-              {artwork.description}
-            </p>
-          </div>
+              Critiques & Comments ({comments.length})
+            </h3>
 
-          <h3
-            className="text-xl"
-            style={{ fontFamily: 'var(--font-playfair), Playfair Display, serif' }}
-          >
-            Critiques & Comments
-          </h3>
+            <CommentList comments={comments} />
 
-          <div className="flex flex-col gap-6">
-            {/* Mentor Feedback */}
-            <article className="relative bg-white border border-[var(--palette-gold)] rounded-lg p-6 shadow-[0_4px_15px_rgba(166,146,109,0.1)]">
-              <div className="absolute -top-2.5 left-5 bg-[var(--palette-text)] text-[var(--palette-bg)] px-2.5 py-0.5 text-xs font-bold rounded uppercase">
-                Best Critique
-              </div>
-              <div className="flex justify-between mb-3 text-[0.9rem]">
-                <span className="font-bold">{artwork.mentorComment.name}</span>
-                <span className="text-[#999] text-[0.8rem]">{artwork.mentorComment.date}</span>
-              </div>
-              <div className="text-[0.95rem] leading-relaxed">
-                <p>{artwork.mentorComment.text}</p>
-              </div>
-            </article>
-
-            {/* Regular Comments */}
-            {artwork.comments.map((comment, index) => (
-              <article key={index} className="py-4 border-b border-gray-100">
-                <div className="flex justify-between mb-2 text-[0.9rem]">
-                  <span className="font-bold">{comment.name}</span>
-                  <span className="text-[#999] text-[0.8rem]">{comment.date}</span>
-                </div>
-                <div className="text-[0.95rem] leading-relaxed">
-                  {comment.text}
-                </div>
-              </article>
-            ))}
-          </div>
-
-          <div className="flex gap-4 mt-4">
-            <input
-              type="text"
-              placeholder="Leave a comment..."
-              className="flex-1 px-4 py-3 border border-[var(--palette-border)] rounded text-[var(--palette-text)] focus:outline-none focus:border-[var(--palette-gold)]"
-            />
-            <button className="px-6 py-3 bg-[var(--palette-text)] text-white rounded font-bold">
-              Post
-            </button>
-          </div>
-        </aside>
+            {isAuthenticated ? (
+              <CommentInput onSubmit={handlePostComment} />
+            ) : (
+              <p className="text-center text-[var(--palette-muted)] py-4">
+                <Link href="/login" className="text-[var(--palette-gold)] hover:underline">
+                  Log in
+                </Link>{' '}
+                to leave a comment
+              </p>
+            )}
+          </aside>
+        </div>
       </div>
     </ProtectedRoute>
-  )
+  );
 }

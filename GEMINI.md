@@ -55,3 +55,6 @@
 *   **Student:** Uploads art, asks for feedback, takes exams.
 *   **Mentor:** Provides feedback (text/drawing), hosts exams.
 *   **Admin:** Manages users, payments, and content.
+
+## Recent Changes
+- 002-implement-gallery-community: Added [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
