@@ -12,6 +12,8 @@ export const GUEST_NAV_ITEMS: NavItem[] = [
 
 export const STUDENT_NAV_ITEMS: NavItem[] = [
   { label: '갤러리', href: '/gallery' },
+  { label: '작품 업로드', href: '/gallery/upload' },
+  { label: '스크랩', href: '/mypage/scraps' },
   { label: '학습 자료', href: '/resources' },
   { label: '멘토 찾기', href: '/mentors' },
   { label: '마이페이지', href: '/profile' },
