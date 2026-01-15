@@ -21,9 +21,15 @@ export const STUDENT_NAV_ITEMS: NavItem[] = [
 
 export const MENTOR_NAV_ITEMS: NavItem[] = [
   { label: '갤러리', href: '/gallery' },
+  { label: '멘토 찾기', href: '/mentors' },
   { label: '포트폴리오 관리', href: '/portfolio' },
   { label: '학생 관리', href: '/students' },
   { label: '마이페이지', href: '/profile' },
+]
+
+// Development-only admin nav items
+export const ADMIN_NAV_ITEMS: NavItem[] = [
+  { label: '멘토 관리', href: '/admin/mentors' },
 ]
 
 export function getNavItemsForRole(role: UserRole | null): NavItem[] {

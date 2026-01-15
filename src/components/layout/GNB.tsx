@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store/auth-store'
 import { useHydration } from '@/hooks/use-hydration'
-import { getNavItemsForRole } from '@/lib/constants/nav-items'
+import { getNavItemsForRole, ADMIN_NAV_ITEMS } from '@/lib/constants/nav-items'
 import { Button } from '@/components/ui/Button'
 
 export function GNB() {
@@ -47,6 +47,17 @@ export function GNB() {
               <Link
                 href={item.href}
                 className="text-[var(--palette-text)] font-medium text-[0.95rem] transition-colors hover:text-[var(--palette-gold)]"
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+          {/* Dev-only Admin Links */}
+          {process.env.NODE_ENV === 'development' && ADMIN_NAV_ITEMS.map(item => (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                className="text-[var(--palette-muted)] font-medium text-[0.95rem] transition-colors hover:text-[var(--palette-gold)] border-l border-[var(--palette-border)] pl-4"
               >
                 {item.label}
               </Link>
