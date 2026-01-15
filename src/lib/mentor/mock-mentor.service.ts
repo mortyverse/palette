@@ -64,7 +64,7 @@ class MockMentorService implements MentorService {
     profiles[data.userId] = profile
     this.saveProfiles(profiles)
 
-    console.log('[MockMentorService] Profile created:', profile.userId)
+    // console.log('[MockMentorService] Profile created:', profile.userId)
     return profile
   }
 
@@ -90,7 +90,7 @@ class MockMentorService implements MentorService {
     profiles[userId] = updatedProfile
     this.saveProfiles(profiles)
 
-    console.log('[MockMentorService] Profile updated:', userId)
+    // console.log('[MockMentorService] Profile updated:', userId)
     return updatedProfile
   }
 
@@ -117,7 +117,7 @@ class MockMentorService implements MentorService {
     profiles[userId] = updatedProfile
     this.saveProfiles(profiles)
 
-    console.log('[MockMentorService] Docs uploaded:', userId, newDocs.length)
+    // console.log('[MockMentorService] Docs uploaded:', userId, newDocs.length)
     return updatedProfile
   }
 
@@ -150,7 +150,7 @@ class MockMentorService implements MentorService {
       )
     }
 
-    console.log('[MockMentorService] Search results:', results.length)
+    // console.log('[MockMentorService] Search results:', results.length)
     return results
   }
 
@@ -174,7 +174,7 @@ class MockMentorService implements MentorService {
     const profiles = this.getProfiles()
     const pendingApplications = Object.values(profiles).filter(p => p.status === 'PENDING')
 
-    console.log('[MockMentorService] Pending applications:', pendingApplications.length)
+    // console.log('[MockMentorService] Pending applications:', pendingApplications.length)
     return pendingApplications
   }
 
@@ -202,7 +202,7 @@ class MockMentorService implements MentorService {
     profiles[userId] = updatedProfile
     this.saveProfiles(profiles)
 
-    console.log('[MockMentorService] Mentor approved:', userId)
+    // console.log('[MockMentorService] Mentor approved:', userId)
     return updatedProfile
   }
 
@@ -234,7 +234,7 @@ class MockMentorService implements MentorService {
     profiles[userId] = updatedProfile
     this.saveProfiles(profiles)
 
-    console.log('[MockMentorService] Mentor rejected:', userId, reason)
+    // console.log('[MockMentorService] Mentor rejected:', userId, reason)
     return updatedProfile
   }
 }
