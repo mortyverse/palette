@@ -1,17 +1,24 @@
 // src/hooks/use-hydration.ts
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useSyncExternalStore } from 'react'
 import { useAuthStore } from '@/store/auth-store'
 
+// Client-side only: always mounted
+const subscribe = () => () => {}
+const getSnapshot = () => true
+const getServerSnapshot = () => false
+
+/**
+ * Hook for checking if auth state has been hydrated from Supabase
+ * Returns true once the initial auth check is complete
+ */
 export function useHydration() {
-  const [hydrated, setHydrated] = useState(false)
+  const isLoading = useAuthStore((state) => state.isLoading)
 
-  useEffect(() => {
-    useAuthStore.persist.rehydrate()
-    // Use a microtask to avoid the linter warning about synchronous setState
-    queueMicrotask(() => setHydrated(true))
-  }, [])
+  // useSyncExternalStore is safe for hydration and avoids cascading renders
+  const mounted = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
 
-  return hydrated
+  // Hydrated when component is mounted AND auth is no longer loading
+  return mounted && !isLoading
 }

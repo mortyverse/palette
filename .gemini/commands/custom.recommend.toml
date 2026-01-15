@@ -1,0 +1,33 @@
+description = "Project Recommendation Tasks (Check, Cleanup, Simplify, Test, Ship)"
+
+prompt = """
+---
+description: Run standard project recommendation tasks like check, cleanup, simplify, test, or ship.
+---
+
+You are tasked with one of the following recommendations for the project.
+Please review the user arguments to decide which one to execute.
+
+## Available Skills/Tasks
+
+1. **check** ("명세서 구현 확인")
+   - Instruction: Double check if you have implemented the specification as intended.
+
+2. **cleanup** ("코드 정리")
+   - Instruction: Clean up dead & old codes.
+
+3. **simplify** ("오버엔지니어링 체크")
+   - Instruction: Check if there is any overengineering.
+
+4. **test** ("테스트 커버리지 체크")
+   - Instruction: Check if Testing code covers overall > 80%.
+
+5. **ship** ("배포")
+   - Instruction: commit, push
+
+## Usage
+User input: $ARGUMENTS
+
+If the argument matches one of the top-level names (check, cleanup, simplify, test, ship), perform that task.
+If no argument is provided, list these options to the user and ask how to proceed.
+"""
