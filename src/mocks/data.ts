@@ -1,4 +1,23 @@
 import { Artwork, Comment } from '@/types/gallery';
+import { CoachingSession, CreditTransaction } from '@/types/coaching';
+
+// Users with credits
+export const MOCK_USERS = [
+  { id: 'user-1', name: '김학생', role: 'student', credits: 50 },
+  { id: 'user-2', name: '이멘토', role: 'mentor', credits: 0 },
+  { id: 'user-3', name: '박학생', role: 'student', credits: 100 },
+];
+
+// In-memory store for coaching data
+export const COACHING_DATA = {
+  sessions: new Map<string, CoachingSession>(),
+  transactions: new Map<string, CreditTransaction>(),
+  userCredits: new Map<string, number>([
+    ['user-1', 50],
+    ['user-2', 0],
+    ['user-3', 100],
+  ]),
+};
 
 export const MOCK_ARTWORKS: Artwork[] = [
   {

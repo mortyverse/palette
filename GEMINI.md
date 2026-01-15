@@ -58,3 +58,7 @@
 
 ## Recent Changes
 - 002-implement-gallery-community: Added [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
+
+## Active Technologies
+- TypeScript 5.x + Next.js 16.1.1, React 19, Tailwind CSS v4, Zustand, Lucide React (003-coaching-system)
+- Mock Data (InMemory/File-based simulation) (003-coaching-system)
