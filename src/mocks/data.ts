@@ -19,6 +19,9 @@ export const COACHING_DATA = {
   ]),
 };
 
+// Note: Mock Exam data is now stored in localStorage via MockExamService
+// See src/lib/mock-exam/service.ts and src/lib/mock-exam/utils.ts
+
 export const MOCK_ARTWORKS: Artwork[] = [
   {
     id: 'art-1',

@@ -13,6 +13,7 @@ export const GUEST_NAV_ITEMS: NavItem[] = [
 export const STUDENT_NAV_ITEMS: NavItem[] = [
   { label: '갤러리', href: '/gallery' },
   { label: '작품 업로드', href: '/gallery/upload' },
+  { label: '모의고사', href: '/mock-exam' },
   { label: '스크랩', href: '/mypage/scraps' },
   { label: '학습 자료', href: '/resources' },
   { label: '멘토 찾기', href: '/mentors' },
@@ -21,6 +22,7 @@ export const STUDENT_NAV_ITEMS: NavItem[] = [
 
 export const MENTOR_NAV_ITEMS: NavItem[] = [
   { label: '갤러리', href: '/gallery' },
+  { label: '모의고사', href: '/mock-exam' },
   { label: '멘토 찾기', href: '/mentors' },
   { label: '포트폴리오 관리', href: '/portfolio' },
   { label: '학생 관리', href: '/students' },

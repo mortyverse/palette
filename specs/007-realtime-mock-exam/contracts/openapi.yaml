@@ -1,0 +1,173 @@
+openapi: 3.0.0
+info:
+  title: Palette Mock Exam API
+  version: 1.0.0
+paths:
+  /mock-exams:
+    get:
+      summary: List mock exams
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [SCHEDULED, IN_PROGRESS, ENDED, COMPLETED]
+      responses:
+        '200':
+          description: List of exams
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MockExam'
+    post:
+      summary: Create a mock exam
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, startTime, endTime, topicImageUrl]
+              properties:
+                title:
+                  type: string
+                startTime:
+                  type: string
+                  format: date-time
+                endTime:
+                  type: string
+                  format: date-time
+                topicImageUrl:
+                  type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MockExam'
+
+  /mock-exams/{id}:
+    get:
+      summary: Get exam details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Exam details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MockExam'
+
+  /mock-exams/{id}/join:
+    post:
+      summary: Join an exam
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Joined successfully
+
+  /mock-exams/{id}/submissions:
+    get:
+      summary: Get submissions (Mentor only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of submissions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExamSubmission'
+    post:
+      summary: Submit artwork
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [imageUrl]
+              properties:
+                imageUrl:
+                  type: string
+      responses:
+        '201':
+          description: Submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExamSubmission'
+
+  /mock-exams/submissions/{submissionId}/feedback:
+    post:
+      summary: Add feedback
+      parameters:
+        - name: submissionId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [content]
+              properties:
+                content:
+                  type: string
+                drawingUrl:
+                  type: string
+      responses:
+        '201':
+          description: Feedback added
+
+components:
+  schemas:
+    MockExam:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        startTime:
+          type: string
+        endTime:
+          type: string
+        topicImageUrl:
+          type: string
+        status:
+          type: string
+    ExamSubmission:
+      type: object
+      properties:
+        id:
+          type: string
+        imageUrl:
+          type: string
+        submittedAt:
+          type: string
