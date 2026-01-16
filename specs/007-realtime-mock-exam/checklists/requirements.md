@@ -1,4 +1,4 @@
-# Specification Quality Checklist: Implement Real-time Mock Exam System
+# Specification Quality Checklist: Real-time Mock Exam System
 
 **Purpose**: Validate specification completeness and quality before proceeding to planning
 **Created**: 2026-01-15
@@ -31,4 +31,4 @@
 
 ## Notes
 
-- Spec is ready for planning.
+- Items marked incomplete require spec updates before `/speckit.clarify` or `/speckit.plan`

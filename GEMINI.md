@@ -57,6 +57,7 @@
 *   **Admin:** Manages users, payments, and content.
 
 ## Recent Changes
+- 007-realtime-mock-exam: Added TypeScript 5.x, Next.js 16.1.1, React 19 + Tailwind CSS v4, Zustand, Lucide React
 - 002-implement-gallery-community: Added [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
 
 ## Active Technologies
